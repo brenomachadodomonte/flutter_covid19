@@ -170,7 +170,7 @@ class _CovidState extends State<Covid> {
                         children: [
                           CircularProgressIndicator(),
                           SizedBox(width: 25),
-                          Text('Carregando...',
+                          Text('Loading...',
                             style: TextStyle(fontSize: 20.0, color: Colors.grey),
                           ),
                         ],
@@ -182,7 +182,7 @@ class _CovidState extends State<Covid> {
               if(snapshot.hasError){
                 return Center(
                     child: Text(
-                      "Erro ao Carregar Dados :(",
+                      "Could not load data :(",
                       style: TextStyle(fontSize: 25.0),
                       textAlign: TextAlign.center,
                     )
