@@ -117,13 +117,6 @@ class _CovidState extends State<Covid> {
                     ),),
                   ),
 
-                  /*Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child:Text(subtitle,style:TextStyle(
-                      fontSize: 30.0,
-                    ),),
-                  ),*/
-
                   Padding(
                     padding:EdgeInsets.all(8.0),
                     child:SizedBox(
@@ -234,45 +227,48 @@ class _CovidState extends State<Covid> {
                   }
                 });
 
-                return Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: myBarChart('Confirmed per Region', true, confirmedMap),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: myCircularItems('Death Rate', confirmed, deaths),
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: myBarChart('Confirmed per Region', true, confirmedMap),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: myCircularItems('Death Rate', confirmed, deaths),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: myTextItems('Confirmed', format.format(confirmed)),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: myTextItems('Deaths', format.format(deaths)),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: myBarChart('Deaths per Region', false, deathsMap),
-                      ),
-                    ],
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: myTextItems('Confirmed', format.format(confirmed)),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: myTextItems('Deaths', format.format(deaths)),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: myBarChart('Deaths per Region', false, deathsMap),
+                        ),
+                        SizedBox(height: 20,)
+                      ],
+                    ),
                   ),
                 );
               }
