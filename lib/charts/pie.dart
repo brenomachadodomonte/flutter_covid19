@@ -17,10 +17,10 @@ class Pie extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearCovid, String>> createSampleData() {
+  static List<charts.Series<LinearCovid, String>> createSampleData(confirmed, deaths) {
     final data = [
-      LinearCovid('C', 742477),
-      LinearCovid('D', 38522),
+      LinearCovid('C', confirmed),
+      LinearCovid('D', deaths),
     ];
 
     return [
