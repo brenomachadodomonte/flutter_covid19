@@ -93,7 +93,7 @@ class _CovidState extends State<Covid> {
     );
   }
 
-  Material myBarChart(String title, bool isBlue){
+  Material myBarChart(String title, bool isBlue, Map data){
     return Material(
       color: Colors.white,
       elevation: 14.0,
@@ -129,7 +129,7 @@ class _CovidState extends State<Covid> {
                     child:SizedBox(
                       width: 320,
                       height: 160,
-                      child: Bar(Bar.createSampleData(isBlue), animate: true,),
+                      child: Bar(Bar.createSampleData(isBlue, data), animate: true,),
                     ),
                   ),
 
@@ -157,7 +157,7 @@ class _CovidState extends State<Covid> {
           IconButton(
             icon: Icon(Icons.refresh, color: Colors.white,),
             onPressed: (){
-              print('refresh');
+              setState(() {});
             },
           )
         ],
@@ -198,13 +198,49 @@ class _CovidState extends State<Covid> {
                 List data = snapshot.data['results'];
                 int confirmed = data.fold(0, (t, e) => t + e['confirmed']);
                 int deaths = data.fold(0, (t, e) => t + e['deaths']);
+
+                Map confirmedMap = {
+                  'NO': 0,
+                  'NE': 0,
+                  'CO': 0,
+                  'SD': 0,
+                  'SU': 0,
+                };
+
+                Map deathsMap = {
+                  'NO': 0,
+                  'NE': 0,
+                  'CO': 0,
+                  'SD': 0,
+                  'SU': 0
+                };
+
+                data.forEach((element){
+                  if(['AM','RR','AP','PA','TO','RO','AC'].contains(element['state'])){
+                    confirmedMap['NO'] += element['confirmed'];
+                    deathsMap['NO'] += element['deaths'];
+                  } else if (['MA','PI','CE','RN','PE','PB','SE','AL','BA'].contains(element['state'])){
+                    confirmedMap['NE'] += element['confirmed'];
+                    deathsMap['NE'] += element['deaths'];
+                  } else if(['MT','MS','GO','DF'].contains(element['state'])){
+                    confirmedMap['CO'] += element['confirmed'];
+                    deathsMap['CO'] += element['deaths'];
+                  } else if (['SP','RJ','ES','MG'].contains(element['state'])){
+                    confirmedMap['SD'] += element['confirmed'];
+                    deathsMap['SD'] += element['deaths'];
+                  } else if (['PR','RS','SC'].contains(element['state'])){
+                    confirmedMap['SU'] += element['confirmed'];
+                    deathsMap['SU'] += element['deaths'];
+                  }
+                });
+
                 return Container(
                   padding: EdgeInsets.all(10),
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: myBarChart('Confirmed per Month', true),
+                        child: myBarChart('Confirmed per Region', true, confirmedMap),
                       ),
                       Row(
                         children: <Widget>[
@@ -234,7 +270,7 @@ class _CovidState extends State<Covid> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: myBarChart('Deaths per Months', false),
+                        child: myBarChart('Deaths per Region', false, deathsMap),
                       ),
                     ],
                   ),

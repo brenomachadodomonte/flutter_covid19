@@ -15,14 +15,13 @@ class Bar extends StatelessWidget {
     );
   }
 
-  static List<charts.Series<OrdinalData, String>> createSampleData(bool isBlue) {
-    final data = [
-      OrdinalData('Jan', 10),
-      OrdinalData('Fev', 25),
-      OrdinalData('Mar', 60),
-      OrdinalData('Abr', 125),
-      OrdinalData('Mai', 140),
-      OrdinalData('Jun', 167),
+  static List<charts.Series<OrdinalData, String>> createSampleData(bool isBlue, Map data) {
+    final dataChart = [
+      OrdinalData('NO', data['NO']),
+      OrdinalData('NE', data['NE']),
+      OrdinalData('CO', data['CO']),
+      OrdinalData('SD', data['SD']),
+      OrdinalData('SU', data['SU']),
     ];
 
     return [
@@ -31,7 +30,7 @@ class Bar extends StatelessWidget {
         colorFn: (_, __) => isBlue ? charts.MaterialPalette.blue.shadeDefault : charts.MaterialPalette.red.shadeDefault,
         domainFn: (OrdinalData sales, _) => sales.month,
         measureFn: (OrdinalData sales, _) => sales.data,
-        data: data,
+        data: dataChart,
       )
     ];
   }
